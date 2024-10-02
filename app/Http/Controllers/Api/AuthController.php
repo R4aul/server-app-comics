@@ -52,7 +52,7 @@ class AuthController extends Controller implements HasMiddleware
         $request->validate([
             'name'=>['required', 'string'],
             'email'=>['required', 'email', 'unique:users'],
-            'password'=>['required']
+            'password'=>['required','min:8']
         ]);  
         $user = User::create([
             'name'=>$request->name,

@@ -24,7 +24,6 @@ class UserController extends Controller implements HasMiddleware
      */
     public function choisePreferences(Request $request){
         $user = $request->user();
-        //return $request;
         $request->validate([
             'preferences'=>['required','array']
         ]);

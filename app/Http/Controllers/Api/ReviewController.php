@@ -28,7 +28,7 @@ class ReviewController extends Controller implements HasMiddleware
         $user = $request->user();
         $request->validate([
             'review_text'=>['required','string'],
-            'rating'=>['required'],
+            'rating'=>['required', 'integer', 'max:5'],
             'comic_id'=>['required','exists:App\Models\Comic,id']
         ]);
         Review::create([
