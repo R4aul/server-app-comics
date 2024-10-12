@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Routing\Controllers\HasMiddleware;
@@ -40,19 +41,18 @@ class AuthController extends Controller implements HasMiddleware
         $token = $user->createToken('auth_token')->plainTextToken;
 
         $data = [
-            'user' => $user,
             'accessToken' => $token,
             'token_type'=>'Bearer'
         ];
 
-        return response()->json($data);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     public function register(Request $request){
         $request->validate([
             'name'=>['required', 'string'],
             'email'=>['required', 'email', 'unique:users'],
-            'password'=>['required','min:8']
+            'password'=>['required','string','min:8','confirmed']
         ]);  
         $user = User::create([
             'name'=>$request->name,
@@ -61,10 +61,10 @@ class AuthController extends Controller implements HasMiddleware
         ]);
         $token = $user->createToken('auth_token')->plainTextToken;
         $data = [
-            'access_toke'=>$token,
+            'accessToken'=>$token,
             'token_type'=>'Bearer'
         ];
-        return response()->json($data);
+        return response()->json($data, Response::HTTP_OK);
     }
 
     public function user(Request $request){

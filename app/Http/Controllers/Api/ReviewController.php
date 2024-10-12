@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Review;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -41,7 +42,7 @@ class ReviewController extends Controller implements HasMiddleware
             'message'=>'Review created success',
             'staus'=>200
         ];
-        return response()->json($data);
+        return response()->json($data,Response::HTTP_OK);
     }
 
     public function deleteReview(Request $request, $id){
@@ -52,13 +53,13 @@ class ReviewController extends Controller implements HasMiddleware
                 'message'=>'review not found',
                 'status'=>404
             ];
-            return response()->json($data,404);
+            return response()->json($data,Response::HTTP_NOT_FOUND);
         }
         $review->delete();
         $data = [
             'message'=>'review deleted success',
             'status'=> 204
         ];
-        return response()->json($data,204);
+        return response()->json($data,Response::HTTP_NO_CONTENT);
     }
 }

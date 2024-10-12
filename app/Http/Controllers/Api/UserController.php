@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
@@ -32,7 +33,7 @@ class UserController extends Controller implements HasMiddleware
             'message'=>'choise created succes',
             'status'=>200,
         ];
-        return response()->json($data,200);
+        return response()->json($data,Response::HTTP_OK);
     }
 
     /**
@@ -47,7 +48,7 @@ class UserController extends Controller implements HasMiddleware
         $data = [
             'message'=>'preferences updated success'
         ];
-        return response()->json($data,200);
+        return response()->json($data,Response::HTTP_OK);
     }
     
 }

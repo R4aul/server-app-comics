@@ -15,14 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory(10)->create();
-        Comic::factory(20)->create();
+        //Category::factory(10)->create();
+        //Comic::factory(20)->create();
         // User::factory(10)->create();
 
         User::factory()->create([
             'name' => 'Test User',
             'email' => 'test@example.com',
             'password'=>bcrypt('12345678')
+        ]);
+    
+        $this->call([
+            AuthorSeeder::class,
+            CategorySeeder::class,
+            ComicSeeder::class
         ]);
     }
 }

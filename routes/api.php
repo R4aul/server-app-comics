@@ -5,6 +5,10 @@ use App\Http\Controllers\Api\ComicsController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\UserController;
 
+Route::get('ping', function(){
+    return response()->json(['messsage'=>'pong']);
+});
+
 Route::prefix('auth')->controller(AuthController::class)->group(function(){
     Route::get('/user','user');
     Route::post('/register','register');

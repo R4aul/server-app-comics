@@ -9,6 +9,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use App\Models\Category;
 use App\Models\Comic;
 use App\Models\Booking;
+use Illuminate\Http\Response;
 
 class ComicsController extends Controller implements HasMiddleware
 {
@@ -25,18 +26,18 @@ class ComicsController extends Controller implements HasMiddleware
 
     public function getAllCategories(){
         $categories = Category::all();
-        return response()->json($categories); 
+        return response()->json($categories, Response::HTTP_OK); 
     }
         
     public function getAllComics(?string $comic = null){
-        $comics = Comic::where('title', 'like', '%'.$comic.'%')->get();
-        return response()->json($comics);
+        $comics = Comic::where('title', 'like', '%'.$comic.'%')->with(['author'])->get();
+        return response()->json($comics, Response::HTTP_OK);
     }
 
 
     public function getComicById($id) {
        $comic = Comic::with(['author','category','reviews'])->findOrFail($id);
-       return response()->json($comic); 
+       return response()->json($comic,Response::HTTP_OK); 
     }
 
     public function bookingComic(Request $request){
@@ -54,6 +55,6 @@ class ComicsController extends Controller implements HasMiddleware
         $data = [
             'message'=>'booking created success'
         ];
-        return response()->json($data);
+        return response()->json($data,Response::HTTP_OK);
     }
 }
