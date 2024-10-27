@@ -24,7 +24,7 @@ Route::prefix('users')->controller(UserController::class)->group(function(){
 Route::prefix('comics')->controller(ComicsController::class)->group(function(){
     Route::get('/getAllCategories', 'getAllCategories');
     Route::post('/bookingComic','bookingComic');
-    Route::get('/getAllComics/{comic?}', 'getAllComics');
+    Route::get('/getAllComics', 'getAllComics');
     Route::get('/getComicById/{id}', 'getComicById');
 });
 

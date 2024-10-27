@@ -29,14 +29,13 @@ class ComicsController extends Controller implements HasMiddleware
         return response()->json($categories, Response::HTTP_OK); 
     }
         
-    public function getAllComics(?string $comic = null){
-        $comics = Comic::where('title', 'like', '%'.$comic.'%')->with(['author'])->get();
+    public function getAllComics(){
+        $comics = Comic::with(['author'])->get();
         return response()->json($comics, Response::HTTP_OK);
     }
 
-
     public function getComicById($id) {
-       $comic = Comic::with(['author','category','reviews'])->findOrFail($id);
+       $comic = Comic::with(['author','category','reviews'=>['user']])->findOrFail($id);
        return response()->json($comic,Response::HTTP_OK); 
     }
 
