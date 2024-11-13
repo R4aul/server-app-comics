@@ -17,8 +17,10 @@ Route::prefix('auth')->controller(AuthController::class)->group(function(){
 });
 
 Route::prefix('users')->controller(UserController::class)->group(function(){
+    Route::get('/getAllFavorites','getAllFavorites');
     Route::post('/choisePreferens', 'choisePreferences');
     Route::put('/updatePreferens','updatePreferences');
+    Route::get('/{id}/checkFavoriteStatus','checkFavoriteStatus');
 });
 
 Route::prefix('comics')->controller(ComicsController::class)->group(function(){
@@ -26,6 +28,7 @@ Route::prefix('comics')->controller(ComicsController::class)->group(function(){
     Route::post('/bookingComic','bookingComic');
     Route::get('/getAllComics', 'getAllComics');
     Route::get('/getComicById/{id}', 'getComicById');
+    Route::get('/getComicsForCategory/{id}','getComicsForCategory');
 });
 
 Route::prefix('reviews')->controller(ReviewController::class)->group(function(){

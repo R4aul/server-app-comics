@@ -56,4 +56,15 @@ class ComicsController extends Controller implements HasMiddleware
         ];
         return response()->json($data,Response::HTTP_OK);
     }
+
+    public function getComicsForCategory($id){
+        $category = Category::with(['comics'=>['author']])->find($id);
+        if (!$category) {
+            $data = [
+                'message'=>'category not found'
+            ];
+            response()->json($data,Response::HTTP_NOT_FOUND);
+        }
+        return response()->json($category, Response::HTTP_OK);
+    }
 }
