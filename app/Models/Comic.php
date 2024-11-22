@@ -23,4 +23,14 @@ class Comic extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public function favorite(){
+        return $this->belongsToMany(User::class,'user_favorites');
+    }
+
+    public function users() {
+    return $this->belongsToMany(User::class, 'bookings')
+                ->withPivot('booking_date', 'final_date', 'returned')
+                ->withTimestamps();
+}
 }

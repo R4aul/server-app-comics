@@ -57,5 +57,15 @@ class User extends Authenticatable
     public function review(){
         return $this->hasOne(Review::class);
     }
+
+    public function favorites(){
+        return $this->belongsToMany(Comic::class,'user_favorites');
+    }
+
+    public function comics() {
+    return $this->belongsToMany(Comic::class, 'bookings')
+                ->withPivot('booking_date', 'final_date', 'returned')
+                ->withTimestamps();
+    }
 }
 

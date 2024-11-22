@@ -17,6 +17,8 @@ class UserController extends Controller implements HasMiddleware
                 'choisePreferences',
                 'updatePreferences',
                 'checkFavoriteStatus',
+                'checkBookingStatus',
+                'checkComicFavoriteStatus',
                 'getAllFavorites'
             ])
         ];
@@ -72,6 +74,26 @@ class UserController extends Controller implements HasMiddleware
             'status' => 200,
         ];
         return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function checkBookingStatus(Request $request, $id){
+        $user = $request->user();
+        $isBooking = $user->comics()->where('comic_id',$id)->exists();
+        $data = [
+            'isBooking' => $isBooking,
+            'status' => 200
+        ];
+        return response()->json($data, Response::HTTP_OK);
+    }
+
+    public function checkComicFavoriteStatus(Request $request, $id){
+        $user = $request->user();
+        $isComicFavorite = $user->favorites()->where('comic_id', $id)->exists();
+        $data = [
+            'isComicFavorite'=>$isComicFavorite,
+            'status'=>200
+        ];
+        return response()->json($data,Response::HTTP_OK);
     }
 
     public function getAllFavorites(Request $request){

@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('bookings', function (Blueprint $table) {
+        Schema::create('user_favorites', function (Blueprint $table) {
             $table->id();
-            $table->date('booking_date');
-            $table->date('final_date');
-            $table->boolean('returned');
             $table->foreignId('user_id')->constrained();
             $table->foreignId('comic_id')->constrained();
             $table->timestamps();
@@ -27,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('bookings');
+        Schema::dropIfExists('user_favorites');
     }
 };
